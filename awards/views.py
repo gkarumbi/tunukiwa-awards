@@ -8,14 +8,16 @@ from vote.managers import VotableManager
 votes = VotableManager()
 
 def index(request):
+    current_user = request.user
+    projects = Project.objects.all()
 
-    return render(request, 'index.html')
+    return render(request, 'index.html',{'projects':projects, 'user':current_user})
 
 @login_required(login_url='accounts/login')
 def create_project(request):
     current_user = request.user
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST,request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.save()
@@ -30,7 +32,7 @@ def create_project(request):
 def create_profile(request):
     current_user = request.user
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST,request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.save()
