@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from vote.models import VoteModel
 
 
 # Create your models here.
@@ -11,6 +12,8 @@ class Project(models.Model):
     description = models.TextField()
     link = models.URLField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now)
+    upvote = models.PositiveIntegerField(default=0)
+    downvote = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
