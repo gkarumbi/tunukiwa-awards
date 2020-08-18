@@ -27,6 +27,11 @@ class Project(models.Model):
     def update_project(self):
         self.save()
 
+    @classmethod
+    def get_single_project(cls,pk):
+        profile = cls.objects.get(pk = pk)
+        return profile 
+
 class Profile(models.Model):
     profile = models.ImageField(upload_to='profiles/', blank=True,null=True)
     bio = models.TextField()
