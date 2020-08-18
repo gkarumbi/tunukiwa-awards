@@ -24,3 +24,17 @@ def create_project(request):
 
     return  render(request,"create_project.html",{'form':form})
 
+@login_required(login_url='accounts/login')
+def create_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.save()
+
+        return redirect('/')
+    else:
+        form = ProfileForm()
+
+    return  render(request,"create_profile.html",{'form':form})
