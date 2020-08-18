@@ -57,6 +57,20 @@ def like_project(request,pk):
     return redirect('/')
 
 
+@login_required(login_url='accounts/login')
+def dislike_project(request,pk):
+    project = Project.get_single_project(pk)
+    current_user = request.user
+    user_id = current_user.id
+
+    if user.is_authenticated:
+        downvote = project.votes.down(user_id)
+        print(project.id)
+        print(downvote)
+        print(project.vote_score)
+        project.downvote = project.votes.count()
+
+    return redirect('/')
 
 
 
