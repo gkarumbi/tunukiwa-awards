@@ -12,13 +12,25 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.contrib.auth import views
+from django.contrib.auth import views as auth_views
+from awards.views import create_project,create_profile,like_project,dislike_project
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('awards.urls'))
+    path('', include('awards.urls')),
+    path('project/new/', create_project, name = 'new-project' ),
+    path('profile/new/', create_profile, name = 'new-profile' ),
+    path('profiles/upvote/(\d+)', like_project, name="like_post"),
+    path('profiles/downvote/(\d+)', dislike_project, name="dislike_post"),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('logout/', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 ]
