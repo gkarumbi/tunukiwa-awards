@@ -1,0 +1,53 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunukiwa</title>
+
+    {% block styles %}  
+
+
+    <link rel="stylesheet" href="/awards/static/css/index.css" >
+    <script src="https://kit.fontawesome.com/e513222f1b.js" crossorigin="anonymous"></script>
+
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+        <div class="top_bar">
+        <div class="container">
+        <div class="col-md-6">
+        <ul class="social">
+        <li><a target="_blank" href="https://www.webenlance.com/"><i class="fa fa-facebook text-white"></i></a></li>
+        <li><a target="_blank" href="https://webenlance.com"><i class="fa fa-twitter text-white"></i></a></li>
+        <li><a target="_blank" href="http://webenlance.com"><i class="fa fa-instagram text-white"></i></a></li>
+        </ul></div>
+        
+        <div class="column-right">
+        <ul class="rightc">
+        <li><i class="fa fa-envelope-o"></i> Profile  </li>
+        <li><i class="fa fa-user"></i> <a href="webenlance.com" >Login</a></li>      
+        </ul>
+        </div>
+        </div>
+        </div>
+        <!--top_bar-->
+        
+        
+        
+
+    </header>
+
+    {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        {% bootstrap_javascript %}
+        <script src="/awards/static/js/index.js"></script>
+    {% endblock %}
+</body>
+</html>
