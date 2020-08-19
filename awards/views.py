@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Project,Profile
 from .forms import ProjectForm,ProfileForm
 from vote.managers import VotableManager
+from django.contrib.auth.models import User
 
 # Create votes object
 votes = VotableManager()
@@ -12,6 +14,18 @@ def index(request):
     projects = Project.objects.all()
 
     return render(request, 'index.html',{'projects':projects, 'user':current_user})
+
+@login_required(login_url='accounts/login')
+def profile(request,username):
+    try:
+        user = User.objects.get(username = username)
+        profile_pic = Profile.objects.filter(user_id =user).all().order_by('-id')
+        bio = Profile.objects.filter(user_id=user).all().order_by('-id')
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    return render(request, "profile.html",{'bio':bio, 'user':user, 'profile_pic':profile_pic})
+
 
 @login_required(login_url='accounts/login')
 def create_project(request):
@@ -36,9 +50,11 @@ def create_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.save()
+            messages.success(request, ('Your profile was successfully created!'))
 
         return redirect('/')
     else:
+        messages.error(request, ('Please correct the error below.'))
         form = ProfileForm()
 
     return  render(request,"create_profile.html",{'form':form})
@@ -50,7 +66,7 @@ def like_project(request,pk):
     current_user = request.user
     user_id = current_user.id
 
-    if user.is_authenticated:
+    if current_user.is_authenticated:
         upvote = project.votes.up(user_id)
         print(upvote)
         project.upvote = project.votes.count()
@@ -65,7 +81,7 @@ def dislike_project(request,pk):
     current_user = request.user
     user_id = current_user.id
 
-    if user.is_authenticated:
+    if current_user.is_authenticated:
         downvote = project.votes.down(user_id)
         print(project.id)
         print(downvote)
