@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from vote.models import VoteModel
+from vote.managers import VotableManager
 
 
 # Create your models here.
-class Project(models.Model):
+class Project(VoteModel,models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(upload_to='images/', blank=True,null=True)
     description = models.TextField()
@@ -29,8 +30,8 @@ class Project(models.Model):
 
     @classmethod
     def get_single_project(cls,pk):
-        profile = cls.objects.get(pk = pk)
-        return profile 
+        project = cls.objects.get(pk = pk)
+        return project 
 
 class Profile(models.Model):
     profile = models.ImageField(upload_to='profiles/', blank=True,null=True)
