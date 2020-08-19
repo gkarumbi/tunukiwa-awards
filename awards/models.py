@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from vote.models import VoteModel
@@ -15,6 +16,25 @@ class Project(VoteModel,models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     upvote = models.PositiveIntegerField(default=0)
     downvote = models.PositiveIntegerField(default=0)
+    id = models.OneToOneField('Profile', on_delete=models.CASCADE, primary_key=True)
+
+    User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+
+    instance.profile.save()
+
+    def __str__(self):
+        return self.user.username
+
 
     def __str__(self):
         return self.title
@@ -36,7 +56,8 @@ class Project(VoteModel,models.Model):
 class Profile(models.Model):
     profile = models.ImageField(upload_to='profiles/', blank=True,null=True)
     bio = models.TextField()
-    project = models.ForeignKey(Project, on_delete = models.CASCADE)
+    #project = models.ForeignKey(Project, on_delete = models.CASCADE)
+    id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = PhoneNumberField()
 
     def __str__(self):
