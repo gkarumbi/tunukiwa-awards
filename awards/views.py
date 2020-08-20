@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import  MoringaMerch
+
 from .serializer import ProjectSerializer, ProfileSerializer
 
 
@@ -95,14 +95,14 @@ def dislike_project(request,pk):
     return redirect('/')
 
 class ProjectList(APIView):
-    def get(self, request,format=None)
-    all_projects = Project.objects.all()
-    serializers = ProjectSerializer(all_projects,many=True)
-    response Response(serializers.data)
+    def get(self, request,format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects,many=True)
+        return Response(serializers.data)
 
 class ProfileList(APIView):
-    def get(self, request,format=None)
-    all_profiles = Profile.objects.all()
-    serializers = ProfileSerializer(all_profile,many=True)
-    response Response(serializers.data)
+    def get(self, request,format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles,many=True)
+        return Response(serializers.data)
 

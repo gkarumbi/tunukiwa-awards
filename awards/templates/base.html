@@ -1,0 +1,32 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunukiwa</title>
+    {% block styles %}
+    
+    {% bootstrap_css %}
+
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/e513222f1b.js" crossorigin="anonymous"></script>
+
+    {% endblock %}
+
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    {% block content %} {% endblock %}
+    {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        {% bootstrap_javascript %}
+        <script src="{% static 'js/index.js'%}"></script>
+    {% endblock %}
+</body>
+</html>

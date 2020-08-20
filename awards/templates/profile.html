@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+{%  if user.is_authenticated%}
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 align-item-center">
+            
+                <div class=" mt-5 card">
+                    <img src="{{profile.profile.url}}"  class="img-responsive" alt="">
+                    <div class="card-body">
+                        <p class="card-text">{{user.username}}</p>
+                        <p>{{profile.bio}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <h4 class="text-muted">Contacts : {{profile.phone}}</h4>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock%}
+

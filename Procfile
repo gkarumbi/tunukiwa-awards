@@ -1,0 +1,1 @@
+web: gunicorn tunukiwa.wsgi --log-file -

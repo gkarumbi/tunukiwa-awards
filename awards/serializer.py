@@ -3,10 +3,10 @@ from .models import Project, Profile
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MoringaMerch
+        model = Project
         fields = ('title', 'image', 'description','link','pub_date','upvote','downvote')
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MoringaMerch
+        model = Profile
         fields = ('profile', 'bio', 'phone')

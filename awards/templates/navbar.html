@@ -10,7 +10,7 @@
     {% block styles %}  
 
 
-    <link rel="stylesheet" href="/awards/static/css/index.css" >
+    <!-- <link rel="stylesheet" href="/awards/static/css/index.css" > -->
     <script src="https://kit.fontawesome.com/e513222f1b.js" crossorigin="anonymous"></script>
 
     {% endblock %}
@@ -22,15 +22,27 @@
         <div class="container">
         <div class="col-md-6">
         <ul class="social">
-        <li><a target="_blank" href="https://www.webenlance.com/"><i class="fa fa-facebook text-white"></i></a></li>
-        <li><a target="_blank" href="https://webenlance.com"><i class="fa fa-twitter text-white"></i></a></li>
-        <li><a target="_blank" href="http://webenlance.com"><i class="fa fa-instagram text-white"></i></a></li>
+        <li><a target="_blank" href="https://www.facebook.com/george.karumbi.75"><i class="fa fa-facebook text-white"></i></a></li>
+        <li><a target="_blank" href="https://www.twitter.com/gkarumbi"><i class="fa fa-twitter text-white"></i></a></li>
+        <li><a target="_blank" href="http://instagram.com/gkarumbi"><i class="fa fa-instagram text-white"></i></a></li>
         </ul></div>
         
         <div class="column-right">
+            {% if user.is_authenticated %}
         <ul class="rightc">
-        <li><i class="fa fa-envelope-o"></i> Profile  </li>
-        <li><i class="fa fa-user"></i> <a href="webenlance.com" >Login</a></li>      
+            <li>
+                <a href="{%url 'new-project' %}">Post a New Project</a>
+            </li>
+            <li> <a href="{%url 'profiles' user.username %}"><i class="fa fa-user"></i> Profile : {{user.username}}</li></a>
+            <li>
+                <i class="fa fa-key"><a href="/accounts/password/change">Change Password</a></i>
+            </li>
+            <li>
+                <li class="fa fa-sign-out-alt"><a href="/logout">Logout</a></li>
+            </li>
+            {% else %}
+            <li><i class="fa fa-sign-in-alt"></i> <a href="/accounts/login" >Login</a></li>     
+            {% endif %}
         </ul>
         </div>
         </div>
@@ -47,7 +59,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         {% bootstrap_javascript %}
-        <script src="/awards/static/js/index.js"></script>
+        <!-- <script src="/awards/static/js/index.js"></script> -->
     {% endblock %}
 </body>
 </html>

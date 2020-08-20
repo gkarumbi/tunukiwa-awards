@@ -27,10 +27,6 @@ from awards.views import create_project,create_profile,like_project,dislike_proj
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('awards.urls')),
-    path('project/new/', create_project, name = 'new-project' ),
-    path('profile/new/', create_profile, name = 'new-profile' ),
-    path('profiles/upvote/(\d+)', like_project, name="like_post"),
-    path('profiles/downvote/(\d+)', dislike_project, name="dislike_post"),
     path('accounts/', include('registration.backends.simple.urls')),
     path('logout/', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 ]
