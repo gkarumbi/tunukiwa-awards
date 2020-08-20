@@ -18,10 +18,10 @@ from .serializer import ProjectSerializer, ProfileSerializer
 votes = VotableManager()
 
 def index(request):
-    current_user = request.user
+    
     projects = Project.objects.all()
 
-    return render(request, 'index.html',{'projects':projects, 'user':current_user})
+    return render(request, 'index.html',{'projects':projects})
 
 @login_required(login_url='accounts/login')
 def profile(request,username):
