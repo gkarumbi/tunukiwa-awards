@@ -1,10 +1,18 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Project,Profile
 from .forms import ProjectForm,ProfileForm
 from vote.managers import VotableManager
 from django.contrib.auth.models import User
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import  MoringaMerch
+from .serializer import ProjectSerializer, ProfileSerializer
+
 
 # Create votes object
 votes = VotableManager()
@@ -17,14 +25,10 @@ def index(request):
 
 @login_required(login_url='accounts/login')
 def profile(request,username):
-    try:
-        user = User.objects.get(username = username)
-        profile_pic = Profile.objects.filter(user_id =user).all().order_by('-id')
-        bio = Profile.objects.filter(user_id=user).all().order_by('-id')
-    except ObjectDoesNotExist:
-        raise Http404()
-
-    return render(request, "profile.html",{'bio':bio, 'user':user, 'profile_pic':profile_pic})
+    user = request.user 
+    profile = Profile.objects.get(pk=user.id)
+    print(profile)
+    return render(request, "profile.html",{'user':user,'profile':profile})
 
 
 @login_required(login_url='accounts/login')
@@ -90,5 +94,15 @@ def dislike_project(request,pk):
 
     return redirect('/')
 
+class ProjectList(APIView):
+    def get(self, request,format=None)
+    all_projects = Project.objects.all()
+    serializers = ProjectSerializer(all_projects,many=True)
+    response Response(serializers.data)
 
+class ProfileList(APIView):
+    def get(self, request,format=None)
+    all_profiles = Profile.objects.all()
+    serializers = ProfileSerializer(all_profile,many=True)
+    response Response(serializers.data)
 
