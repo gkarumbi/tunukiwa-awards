@@ -13,6 +13,16 @@ This is a project that displays projects from Moringa School students
 * Python3
 * postgress
 
+# API End-points
+* https://tunukiwa.herokuapp.com/api/profile/ - Profile End-point
+* https://tunukiwa.herokuapp.com/api/project/ - Project End-Point
+
+# User Stories
+  *Post a project to be rated/reviewed
+  *Rate/ review other users' projects
+  *View projects overall score
+  *View my profile page
+
 # Installation Process
 * open my GitHub
 * find my repo insta-clone
