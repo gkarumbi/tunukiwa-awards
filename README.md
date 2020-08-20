@@ -1,6 +1,6 @@
 # tunukiwa-awards
 
-# An instagram clone app
+
 # By George Karumbi
 
 # Description.
